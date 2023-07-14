@@ -1,43 +1,49 @@
 const { connect, disconnect } = require('../config/db.config');
-const { Task } = require('../model/task.model');
+const {Property } = require('../model/property.model');
 const logger = require('../logger/api.logger');
 
-class TaskRepository {
+class PropertyRepository {
 
     constructor() {
         connect();
     }
 
-    async getTasks() {
-        const tasks = await Task.find({});
-        console.log('tasks:::', tasks);
-        return tasks;
+    async getProperties() {
+        const properties = await Property.find({});
+        console.log('properties:::', properties);
+        return properties;
     }
 
-    async createTask(task) {
+    async getProperty(propertyId) {
+        const property = await Property.findOne({ id: propertyId });
+        console.log('property:::', property);
+        return property;
+    }
+
+    async createProperty(property) {
         let data = {};
         try {
-            data = await Task.create(task);
+            data = await Property.create(property);
         } catch(err) {
             logger.error('Error::' + err);
         }
         return data;
     }
 
-    async updateTask(task) {
+    async updateProperty(property) {
         let data = {};
         try {
-            data = await Task.updateOne(task);
+            data = await Property.updateOne(property);
         } catch(err) {
             logger.error('Error::' + err);
         }
         return data;
     }
 
-    async deleteTask(taskId) {
+    async deleteProperty(propertyId) {
         let data = {};
         try {
-            data = await Task.deleteOne({_id : taskId});
+            data = await Property.deleteOne({id : propertyId});
         } catch(err) {
             logger.error('Error::' + err);
         }
@@ -46,4 +52,4 @@ class TaskRepository {
 
 }
 
-module.exports = new TaskRepository();
+module.exports = new PropertyRepository();

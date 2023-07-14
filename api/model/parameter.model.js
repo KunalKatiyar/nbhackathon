@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const taskSchema = new mongoose.Schema({ task: 'string', 
+const paramSchema = new mongoose.Schema({ task: 'string', 
                 assignee: 'string', 
                 status: 'string', 
                 createDate: 'date', 
@@ -9,8 +9,8 @@ const taskSchema = new mongoose.Schema({ task: 'string',
                 updatedBy: 'string' },
                 { timestamps: { createDate: 'created_at', updatedDate: 'updated_at'}});
 
-const Task = mongoose.model('tasks', taskSchema);
+const Parameters = mongoose.model('parameters', paramSchema);
 
 module.exports = {
-    Task
+    Parameters
 }
