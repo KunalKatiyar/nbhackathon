@@ -7,6 +7,8 @@ import {
   Routes,
   Route
 } from "react-router-dom";
+import SearchPage from './components/SearchPage';
+import MyProperty from './components/MyProperty';
 
 function App() {
 
@@ -17,6 +19,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
         </Routes>
+        <Routes>
+          <Route path="/search" element={<SearchPage />} />
+        </Routes>
+        <Routes>
+          <Route path="/myproperty" element={<MyProperty />} />
+        </Routes>
+
       </div>
     </BrowserRouter>
   )

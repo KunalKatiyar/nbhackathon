@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import { Button, Slider } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { useNavigate } from 'react-router-dom';
 
 function valuetext1(sliderValue1) {
     return `Rs. ${sliderValue1} lakh`;
@@ -64,6 +65,7 @@ const useStyles = makeStyles(() => ({
 
 const AskUser = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
   
   const [sliderValue1, setSliderValue1] = useState([0,100]);
   const [sliderValue2, setSliderValue2] = useState(5);
@@ -127,6 +129,11 @@ const AskUser = () => {
 
   const handleChange = (event, newValue) => {
     setSliderValue1(newValue);
+  };
+
+  const handleSearch = () => {
+    // Redirect to /search and pass the slider values as query parameters
+    navigate(`/search?value1=${sliderValue1}&value2=${sliderValue2}&value3=${sliderValue3}`);
   };
 
   return (
@@ -198,7 +205,7 @@ const AskUser = () => {
       </div>
       <div className={classes.item}>
         <div className={classes.buttonContainer}>
-            <Button variant="contained" className={classes.redButton}>
+            <Button variant="contained" className={classes.redButton} onClick={handleSearch}>
                 <SearchIcon className={classes.searchIcon} />
                 Search
             </Button>

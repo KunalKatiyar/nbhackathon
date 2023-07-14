@@ -1,6 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Box, makeStyles } from '@material-ui/core';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
     appBar: {
@@ -13,6 +13,7 @@ const useStyles = makeStyles(() => ({
 const Header = () => {
  const location = useLocation();
  const classes = useStyles();
+ const navigate = useNavigate();
 
   const isLinkActive = (path) => {
     return location.pathname === path ? { color: '#FA3A57' } : { color: 'black' };
@@ -20,7 +21,11 @@ const Header = () => {
   return (
     <AppBar position="static" className={classes.appBar}>
       <Toolbar>
-        <img src="/images/logo.png" alt="Logo" style={{ marginRight: '10px', paddingTop: "25px" }} />
+        <img src="/images/logo.png" alt="Logo" style={{ marginRight: '10px', paddingTop: "25px" }} 
+        onClick={
+            ()=>navigate('/')
+        }/>
+
         <Typography variant="h6" style={{ flexGrow: 1 }}>
            
         </Typography>
@@ -28,6 +33,9 @@ const Header = () => {
             <Typography variant="subtitle1">
                 <Link to="/" style={{ ...isLinkActive('/'), marginRight: '10px', padding: '20px' }}>
                     Home
+                </Link>
+                <Link to="/myproperty" style={{ ...isLinkActive('/myproperty'), marginRight: '10px', padding: '20px' }}>
+                    My Property
                 </Link>
                 <Link to="/news" style={{ ...isLinkActive('/news'), marginRight: '10px', padding: '20px' }}>
                     News
