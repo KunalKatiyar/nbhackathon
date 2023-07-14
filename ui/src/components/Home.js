@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
+import { makeStyles } from '@material-ui/core/styles';
 import Header from './Header'
 import { Tasks } from './Tasks'
 import CreateTask from './CreateTask'
 import { getAllTasks, deleteTask, fetchSettings } from '../services/TaskService'
+import HomeCarousel from './HomeCarousel';
+import AskUser from './AskUser';
+import HowWorks from './HowWorks';
 
 function Home() {
 
@@ -18,6 +22,15 @@ function Home() {
         setTasks(tasks)
       });
   }, [numberOfTasks, isTaskEdited])
+
+  const useStyles = makeStyles(() => ({
+    appContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  }));
 
 
   function delTask(taskId) {
@@ -34,10 +47,15 @@ function Home() {
   function taskEdited(res) {
      setTaskEdited(res)
   }
+
+  const classes = useStyles();
     
   return (
-    <div className="App">
+    <div className={`${classes.appContainer} App`}>
       <Header></Header>
+      <HomeCarousel></HomeCarousel>
+      <AskUser></AskUser>
+      <HowWorks></HowWorks>
       <div className="container mrgnbtm">
         <div className="row">
           <div className="col-md-12">
