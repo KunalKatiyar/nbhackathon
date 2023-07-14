@@ -12,7 +12,7 @@ if(process.env.ENVIRONMENT !== 'production') {
 
 const taskController = require('./controller/task.controller')
 const propertyController = require('./controller/property.Controller')
-
+const parametersController = require('./controller/propertyAdditionalAttribute.Controller')
 
 const app = express();
 const port = process.env.PORT || 3080;
@@ -21,7 +21,6 @@ app.use(express.static(path.join(__dirname, './ui/build')));
 app.use(bodyParser.json());
 
 app.get('/api/properties', (req, res) => {
-    console.log(res);
     propertyController.getProperties().then(data => res.json(data));
 });
 
@@ -31,11 +30,11 @@ app.get('/api/property/:id', (req, res) => {
 
 app.post('/api/createProperty', (req, res) => {
     console.log(req.body);
-    propertyController.createProperty(req.body.task).then(data => res.json(data));
+    propertyController.createProperty(req.body).then(data => res.json(data));
 });
 
 app.put('/api/updateProperty', (req, res) => {
-    propertyController.updateProperty(req.body.task).then(data => res.json(data));
+    propertyController.updateProperty(req.body).then(data => res.json(data));
 });
 
 app.delete('/api/deleteProperty/:id', (req, res) => {
@@ -46,6 +45,34 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './ui/build/index.html'));
 });
 
+
+
+
+
+app.post('/api/createParam', (req, res) => {
+    parametersController.createParameter(req.body).then(data => res.json(data));
+});
+
+app.get('/api/parameters', (req, res) => {
+    parametersController.getParameters().then(data => res.json(data));
+});
+
+
+app.get('/api/parameter/:id', (req, res) => {
+    parametersController.getParameter(req.params.id).then(data => res.json(data));
+});
+
+app.put('/api/updateParameters/:id', (req, res) => {
+    parametersController.updateParameter(req.body,req.params.id).then(data => res.json(data));
+});
+
+app.delete('/api/deleteParameters/:id', (req, res) => {
+    parametersController.deleteParameter(req.params.id).then(data => res.json(data));
+});
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './ui/build/index.html'));
+});
 
 
 

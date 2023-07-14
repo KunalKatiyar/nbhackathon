@@ -14,18 +14,18 @@ class PropertyController {
     }
 
     async createProperty(property) {
-        logger.info('Controller: createproperty', task);
-        return await propertyService.createProperty(task);
+        logger.info('Controller: createproperty')
+        return await propertyService.createProperty(property);
     }
 
     async updateProperty(property) {
-        logger.info('Controller: updateproperty', task);
-        return await propertyService.updateProperty(task);
+        logger.info('Controller: updateproperty', property);
+        return await propertyService.updateProperty(property);
     }
 
     async deleteProperty(propertyId) {
-        logger.info('Controller: deleteproperty', taskId);
-        return await propertyService.deleteProperty(taskId);
+        logger.info('Controller: deleteproperty', propertyId);
+        return await propertyService.deleteProperty(propertyId);
     }
 }
 module.exports = new PropertyController();

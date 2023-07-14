@@ -1,44 +1,55 @@
 const { connect, disconnect } = require('../config/db.config');
-const { Task } = require('../model/task.model');
-const { Task } = require('../model/task.model');
+const {Parameter } = require('../model/parameter.model');
 const logger = require('../logger/api.logger');
 
-class TaskRepository {
+class ParameterRepository {
 
     constructor() {
         connect();
     }
 
-    async getTasks() {
-        const tasks = await Task.find({});
-        console.log('tasks:::', tasks);
-        return tasks;
+    async getParameters() {
+        const parameters = await Parameter.find({});
+        console.log('parameters:::', parameters);
+        return parameters;
     }
 
-    async createTask(task) {
+    async getParameter(propertyId) {
+    
+        try {
+            const parameter = await Parameter.findOne({ id: propertyId });
+            console.log('parameter:::', parameter);
+            return parameter;
+        } catch(err) {
+            logger.error('Error::' + err);
+        }
+    }
+
+    async createParameter(param) {
         let data = {};
         try {
-            data = await Task.create(task);
+            console.log("Parameter:: "+Parameter);
+            data = await Parameter.findOneAndUpdate({id:param.id},param,{ upsert: true, new: true, setDefaultsOnInsert: true });
         } catch(err) {
             logger.error('Error::' + err);
         }
         return data;
     }
 
-    async updateTask(task) {
+    async updateParameter(parameter,propertyId) {
         let data = {};
         try {
-            data = await Task.updateOne(task);
+            data = await Parameter.updateOne({id: propertyId}, parameter);
         } catch(err) {
             logger.error('Error::' + err);
         }
         return data;
     }
 
-    async deleteTask(taskId) {
+    async deleteParameter(propertyId) {
         let data = {};
         try {
-            data = await Task.deleteOne({_id : taskId});
+            data = await Parameter.deleteOne({id : propertyId});
         } catch(err) {
             logger.error('Error::' + err);
         }
@@ -47,4 +58,4 @@ class TaskRepository {
 
 }
 
-module.exports = new TaskRepository();
+module.exports = new ParameterRepository();

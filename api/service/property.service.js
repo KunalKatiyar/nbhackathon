@@ -12,15 +12,15 @@ class PropertyService {
         return await propertyRepository.getProperty(propertyId);
     }
     async createProperty(property) {
-        return await propertyRepository.createProperty(Property);
+        return await propertyRepository.createProperty(property);
     }
 
     async updateProperty(property) {
-        return await propertyRepository.updateProperty(Property);
+        return await propertyRepository.updateProperty(property);
     }
 
     async deleteProperty(propertyId) {
-        return await propertyRepository.deleteProperty(PropertyId);
+        return await propertyRepository.deleteProperty(propertyId);
     }
 
 }

@@ -221,7 +221,8 @@ const propertySchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
-});
+}, {collection: "property_resale"}
+);
 
 const Property = mongoose.model("property_resale", propertySchema);
 
