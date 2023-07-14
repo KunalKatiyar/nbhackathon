@@ -16,7 +16,7 @@ class PropertyRepository {
 
     async getProperty(propertyId) {
         const property = await Property.findOne({ id: propertyId });
-        console.log('property:::', property);
+        //console.log('property:::', property);
         return property;
     }
 

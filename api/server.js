@@ -46,9 +46,6 @@ app.get('/', (req, res) => {
 });
 
 
-
-
-
 app.post('/api/createParam', (req, res) => {
     parametersController.createParameter(req.body).then(data => res.json(data));
 });
@@ -74,7 +71,13 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, './ui/build/index.html'));
 });
 
+app.get('/api/generateParameters', (req, res) => {
+    parametersController.saveParameters().then(data => res.json(data));
+});
 
+app.get('/api/getRoiScore/:id', (req, res) => {
+    parametersController.getParameter(req.params.id).then(data => res.json(data));
+});
 
 app.listen(port, () => {
     console.log(`Server listening on the port  ${port}`);

@@ -26,10 +26,14 @@ const paramSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    demand: {
+    rental_demand: {
       type: String,
       required: true,
     },
+    buying_demand: {
+        type: String,
+        required: true,
+      },
     sqft: {
       type: Number,
       required: true,
@@ -42,6 +46,10 @@ const paramSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    redirect_url: {
+        type: String,
+        required: true,
+    }
   },
   { collection: "Parameter" }
 );
