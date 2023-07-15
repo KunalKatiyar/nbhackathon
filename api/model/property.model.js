@@ -173,6 +173,9 @@ const propertySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  photo_urls: {
+    type: Object,
+  },
   "property_resale.event_time": {
     type: String,
     required: true,
@@ -189,7 +192,7 @@ const propertySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  "property_resale.price": {
+  "price": {
     type: Number,
     required: true,
   },
@@ -221,10 +224,10 @@ const propertySchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
-}, {collection: "property_resale"}
+}, {collection: "property"}
 );
 
-const Property = mongoose.model("property_resale", propertySchema);
+const Property = mongoose.model("property", propertySchema);
 
 module.exports = {
   Property,

@@ -17,6 +17,11 @@ class ParamController {
         return await parameterService.getParameter(propertyId);
     }
 
+    async getSortedProperties(price) {
+        logger.info('ParamController: getParameter')
+        return await parameterService.getSortedProperties(price);
+    }
+
     async updateParameter(parameter,propertyId) {
         logger.info('ParamController: updateparameter', propertyId);
         return await parameterService.updateParameter(parameter,propertyId);

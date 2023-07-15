@@ -9,10 +9,10 @@ class BuyerDemandRepository {
 
   async getByLocality(nb_locality) {
     try {
-      const buyerDemand = await BuyerDemand.findOne({ nb_locality });
+      const buyerDemand = await BuyerDemand.findOne({ nb_locality: nb_locality });
       return buyerDemand.close_time;
     } catch (error) {
-      logger.error("Error::" + err);
+      logger.error("Error::" + error);
     }
   }
 }

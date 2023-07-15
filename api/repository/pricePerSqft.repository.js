@@ -9,7 +9,7 @@ class SQFTRateRepository {
 
   async getByLocality(nb_locality) {
     try {
-      const sqftRate = await SQFTRate.findOne({ nb_locality });
+      const sqftRate = await SQFTRate.findOne({ nb_locality: nb_locality });
       return sqftRate.price_per_sqft;
     } catch (err) {
       logger.error("Error::" + err);

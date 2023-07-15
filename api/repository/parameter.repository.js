@@ -25,6 +25,20 @@ class ParameterRepository {
         }
     }
 
+    async getSortedProperties(price) {
+    
+        try {
+            console.log('price:::', price);
+            price = price*100000;
+            let parameter = await Parameter.find({ price: { $lte: price} }).sort({roi: -1});
+            // parameter.sort({roi: 1});
+            console.log('parameter:::', parameter);
+            return parameter;
+        } catch(err) {
+            logger.error('Error::' + err);
+        }
+    }
+
     async createParameter(param) {
         let data = {};
         try {

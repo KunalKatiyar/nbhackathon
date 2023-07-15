@@ -79,6 +79,10 @@ app.get('/api/getRoiScore/:id', (req, res) => {
     parametersController.getParameter(req.params.id).then(data => res.json(data));
 });
 
+app.get('/api/getSortedProperties/:id', (req, res) => {
+    parametersController.getSortedProperties(req.params.id).then(data => res.json(data));
+}
+);
 app.listen(port, () => {
     console.log(`Server listening on the port  ${port}`);
 })
