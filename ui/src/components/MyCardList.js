@@ -7,8 +7,8 @@ import { Alert, AlertTitle } from '@mui/material';
 const useStyles = makeStyles(() => ({
   container: {
     display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexDirection: 'row',
+    alignItems: 'top',
   },
   container2: {
     display: 'flex',
@@ -28,7 +28,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: '1200px',
+    height: '1250px',
     width: '600px',
     borderRadius: '10px',
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
@@ -127,6 +127,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '10px',
     display: 'flex',
     alignItems: 'center',
+    paddingRight: "20px"
   },
   blackText: {
     color: 'black',
@@ -169,22 +170,10 @@ const MyCardList = () => {
       subtitle: '3 BHK Apartments, Marathalli, Bangalore, Karnataka',
       image: '/images/property.png',
       smallCards: [
-        { option: 'Option 1', description: 'Descripti' },
-        { option: 'Option 2', description: 'Descripti' },
-        { option: 'Option 3', description: 'Descripti' },
-        { option: 'Option 4', description: 'Descripti' },
-      ],
-    },
-    {
-      id: 2,
-      title: 'Card 1',
-      subtitle: 'Subtitle 1',
-      image: '/images/card2.png',
-      smallCards: [
-        { option: 'Option 1', description: 'Descripti' },
-        { option: 'Option 2', description: 'Descripti' },
-        { option: 'Option 3', description: 'Descripti' },
-        { option: 'Option 4', description: 'Descripti' },
+        { option: 'Rs 40,00,000/-', description: 'Rs 4000 per sq ft.' },
+        { option: 'Rs 15,000/-', description: 'Rental Yield' },
+        { option: '10%', description: 'Return on Investment' },
+        { option: '1700 sqft', description: 'Builtup Area' },
       ],
     },
     // Add more card details objects here
@@ -215,6 +204,9 @@ const MyCardList = () => {
 
   return (
     <div className={classes.container}>
+      <div>
+        <img src = "images/left.png" alt = "property" className = {classes.svg2} />
+      </div>
       <div className={classes.cardList}>
         {cardDetails.map((card, index) => (
           <Card className={classes.card} key={card.id}>
@@ -235,27 +227,27 @@ const MyCardList = () => {
               <img alt="bed" src="images/BED.svg" height="32px" width="32px" className={classes.svg} />
             <div className={classes.item}>
                 <div className={classes.redText}>
-                    Property Price
+                    Apartment
                 </div>
-                <span className={classes.blackText}>Rs lakhs</span>
+                <span className={classes.blackText}>3 BHK</span>
                 <div className={classes.sliderContainer}>
                 </div>
             </div>
             <img alt="bed" src="images/BATHROOM.svg" height="32px" width="32px" className={classes.svg} />
             <div className={classes.item}>
                 <div className={classes.redText}>
-                    Property Price
+                    Bathroom
                 </div>
-                <span className={classes.blackText}>Rs  lakhs</span>
+                <span className={classes.blackText}>3</span>
                 <div className={classes.sliderContainer}>
                 </div>
             </div> 
             <img alt="bed" src="images/garage.svg" height="32px" width="32px" className={classes.svg} />
             <div className={classes.item}>
                 <div className={classes.redText}>
-                    Property Price
+                    Parking
                 </div>
-                <span className={classes.blackText}>Rs lakhs</span>
+                <span className={classes.blackText}>2 Cars</span>
                 <div className={classes.sliderContainer}>
                 </div>
             </div>
@@ -271,9 +263,9 @@ const MyCardList = () => {
 </svg>
                             <div className={classes.item}>
                 <div className={classes.redText}>
-                    Property Price
+                    Growth Rate
                 </div>
-                <span className={classes.blackText}>Rs lakhs</span>
+                <span className={classes.blackText}>10 % Y-O-Y </span>
                 <div className={classes.sliderContainer}>
                 </div>
             </div> 
@@ -298,9 +290,9 @@ const MyCardList = () => {
                 ))}
               </div>
               <div className={classes.buttonContainer2}>
-                <Button color='red' className={classes.largeButton}>Loan Service</Button>
-                <Button className={classes.largeButton}>Legal Service</Button>
-                <Button className={classes.largeButton}>FRM Services</Button>
+                <Button color='red' className={classes.largeButton}>Post your property</Button>
+                <Button className={classes.largeButton}>Create Rental Agreement</Button>
+                <Button className={classes.largeButton}>Opt for Home Services</Button>
               </div>
             </div>
 
@@ -343,9 +335,6 @@ const MyCardList = () => {
               </Button>
               <Button variant="outlined" className={classes.largeButton} color="error">
                 Interior Service
-              </Button>
-              <Button variant="outlined" className={classes.largeButton} onClick={()=>handleSmallCardClick(index)} color="error">
-                Find Tenant
               </Button>
             </div>
           </Card>

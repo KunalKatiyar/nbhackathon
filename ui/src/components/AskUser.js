@@ -133,7 +133,7 @@ const AskUser = () => {
 
   const handleSearch = () => {
     // Redirect to /search and pass the slider values as query parameters
-    navigate(`/search?value1=${sliderValue1}&value2=${sliderValue2}&value3=${sliderValue3}`);
+    navigate(`/search?value1=${sliderValue1[1]}&value2=${sliderValue2}&value3=${sliderValue3}`);
   };
 
   return (

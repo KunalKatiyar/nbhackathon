@@ -1,9 +1,10 @@
-import {React, useState} from 'react';
+import {React, useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardContent, CardMedia, Typography, Button, Icon } from '@material-ui/core';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { Alert, AlertTitle } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import PDF from "./investment.pdf";
 
 const useStyles = makeStyles(() => ({
   container: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    height: '350px',
+    height: '330px',
     width: '610px',
     borderRadius: '10px',
     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
@@ -119,7 +120,7 @@ const useStyles = makeStyles(() => ({
     color: 'black',
     fontSize: '10px',
     marginTop: '5px',
-    paddingRight: '80px',
+    paddingRight: '70px',
   },
   largeButton: {
     backgroundColor: 'white',
@@ -127,7 +128,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: '5px',
     padding: '10px 20px',
     fontWeight: 'bold',
-    fontSize: '14px',
+    fontSize: '10px',
   },
   smallButton: {
     backgroundColor: 'white',
@@ -137,93 +138,119 @@ const useStyles = makeStyles(() => ({
     fontWeight: 'bold',
     fontSize: '14px',
   },
+  atag: {
+    textDecoration: 'none',
+  }
 }));
 
-const CardList = () => {
+const CardList = (props) => {
   const classes = useStyles();
 
+  useEffect(() => {
+    console.log(props.tasks);
+    }, []);
   const [showAlert, setShowAlert] = useState(false);
+  const [showAlert2, setShowAlert2] = useState(false);
 
   const handleCloseAlert = () => {
     setShowAlert(false);
   };
 
+  const handleCloseAlert2 = () => {
+    setShowAlert2(false);
+  };
+
+
+  console.log(props.tasks[0]);
+
+  const cardDetails = props.tasks;
+  cardDetails.map((card, index) => {
+    card.index = index;
+    card.smallCards = [
+        { option: card.price, description: card.sqft + " sq ft." },
+        { option: Math.round((card.rental_yield + Number.EPSILON) * 100) / 100 + "%", description: "Rental Yield" },
+        { option: Math.round((card.roi + Number.EPSILON) * 100) / 100
+        + "%", description: 'Return' },
+        { option: card.sqft + " sqft", description: 'Builtup Area' },
+    ]
+    });
+
   // Example JSON array of card details
-  const cardDetails = [
-    {
-      id: 1,
-      title: '3 BHK Apartments, Marathalli, Bangalore, Karnataka',
-      subtitle: '3 BHK Apartments, Marathalli, Bangalore, Karnataka',
-      image: '/images/property.png',
-      smallCards: [
-        { option: 'Option 1', description: 'Descripti' },
-        { option: 'Option 2', description: 'Descripti' },
-        { option: 'Option 3', description: 'Descripti' },
-        { option: 'Option 4', description: 'Descripti' },
-      ],
-    },
-    {
-      id: 2,
-      title: 'Card 1',
-      subtitle: 'Subtitle 1',
-      image: '/images/property.png',
-      smallCards: [
-        { option: 'Option 1', description: 'Descripti' },
-        { option: 'Option 2', description: 'Descripti' },
-        { option: 'Option 3', description: 'Descripti' },
-        { option: 'Option 4', description: 'Descripti' },
-      ],
-    },
-    // Add more card details objects here
-  ];
+//   const cardDetails = [
+//     {
+//       id: 1,
+//       title: '3 BHK Apartments, Marathalli, Bangalore, Karnataka',
+//       subtitle: '3 BHK Apartments, Marathalli, Bangalore, Karnataka',
+//       image: '/images/property.png',
+//       smallCards: [
+//         { option: 'Option 1', description: 'Descripti' },
+//         { option: 'Option 2', description: 'Descripti' },
+//         { option: 'Option 3', description: 'Descripti' },
+//         { option: 'Option 4', description: 'Descripti' },
+//       ],
+//     },
+//     {
+//       id: 2,
+//       title: 'Card 1',
+//       subtitle: 'Subtitle 1',
+//       image: '/images/property.png',
+//       smallCards: [
+//         { option: 'Option 1', description: 'Descripti' },
+//         { option: 'Option 2', description: 'Descripti' },
+//         { option: 'Option 3', description: 'Descripti' },
+//         { option: 'Option 4', description: 'Descripti' },
+//       ],
+//     },
+//     // Add more card details objects here
+//   ];
 
   //Create an array of states for each card
-    const [cardStates, setCardStates] = useState(
-        cardDetails.map((card) => {
-            return {
-                id: card.id,
-                selected: false,
-            };
-        })
-    );
+    const constCardStates = [{}];
+    for(let i = 0; i < cardDetails.length; i++) {
+        constCardStates[i] = { id: cardDetails[i].index, selected: false };
+    }
+    const [cardStates, setCardStates] = useState([{}]);
+    for(let i = 0; i < cardDetails.length; i++) {
+        setCardStates[i] = { id: cardDetails[i].index, selected: false };
+    }
 
     // Function to handle the click event on the small cards
     const handleSmallCardClick = (cardId) => {
-        console.log(cardId);
-        // Create a copy of the cardStates array
-        const newCardStates = [...cardStates];
-        // Toggle the selected state of the card
-        newCardStates[cardId].selected = !newCardStates[cardId].selected;
-        // Update the cardStates array
-        setCardStates(newCardStates);
         setShowAlert(true);
         window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     };
+
+    const handleSmallCardClick2 = (cardId) => {
+      setShowAlert2(true);
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
 
     const navigate = useNavigate();
 
   return (
     <div className={classes.container}>
       <div className={classes.cardList}>
-      {showAlert && (
+                {showAlert && (
                     <Alert severity="success" onClose={handleCloseAlert}>
-                        RM has been contacted!
+                        Your RM Contact will be sent on your registered email!
                     </Alert>
                 )}
         {cardDetails.map((card, index) => (
           <Card className={classes.card} key={card.id}>
             <div className={classes.cardTop}>
+            <a href={card.redirect_url} className={classes.atag}>
               <div>
-                <Typography className={classes.cardTitle}>{card.title}</Typography>
-                <Typography className={classes.cardSubtitle}>{card.subtitle}</Typography>
+                <Typography className={classes.cardTitle}>{"Property in " + card.locality}</Typography>
+                {/* <Typography className={classes.cardSubtitle}>{card.subtitle}</Typography> */}
               </div>
+              </a>
             </div>
             <div className={classes.cardContent}>
               <CardMedia
                 className={classes.cardImage}
                 component="img"
-                image={card.image}
-                alt={card.title}
+                image="/images/property.png"
+                alt={card.locality}
               />
               <div className={classes.smallCardContainer}>
                 {card.smallCards.map((smallCard, index) => (
@@ -257,9 +284,9 @@ const CardList = () => {
 </svg>
             <div className={classes.item}>
                 <div className={classes.redText}>
-                    Property Price
+                    Demand
                 </div>
-                <span className={classes.blackText}>Rs  lakhs</span>
+                <span className={classes.blackText}>{card.rental_demand}</span>
                 <div className={classes.sliderContainer}>
                 </div>
             </div> 
@@ -277,9 +304,9 @@ const CardList = () => {
                 </svg>
             <div className={classes.item}>
                 <div className={classes.redText}>
-                    Property Price
+                    Value for money
                 </div>
-                <span className={classes.blackText}>Rs lakhs</span>
+                <span className={classes.blackText}>Deal</span>
                 <div className={classes.sliderContainer}>
                 </div>
             </div>
@@ -295,14 +322,14 @@ const CardList = () => {
 </svg>
                             <div className={classes.item}>
                 <div className={classes.redText}>
-                    Property Price
+                    Growth Rate
                 </div>
-                <span className={classes.blackText}>Rs lakhs</span>
+                <span className={classes.blackText}>{card.yoy_growth + "% Y-o-Y"}</span>
                 <div className={classes.sliderContainer}>
                 </div>
             </div> 
             </div>
-            {!cardStates[index].selected? <div className={classes.buttonContainer}>
+            {cardStates === undefined && !cardStates[index].selected? <div className={classes.buttonContainer}>
               <Button variant="outlined" className={classes.largeButton} color="error">
                 Get Investment Sheet
               </Button>
@@ -315,8 +342,18 @@ const CardList = () => {
             </div>
             :
             <div className={classes.buttonContainer}>
+              <a
+        href={PDF}
+        download="Example-PDF-document"
+        target="_blank"
+        rel="noreferrer"
+      >
               <Button variant="outlined" className={classes.largeButton} color="error">
-                Reject
+                Get Investment Sheet
+              </Button>
+              </a>
+              <Button variant="outlined" className={classes.largeButton} onClick={()=>handleSmallCardClick(index)} color="error">
+                Contact RM
               </Button>
               <Button variant="outlined" className={classes.largeButton} onClick={()=>navigate('/myproperty')}color="error">
                 Close Property

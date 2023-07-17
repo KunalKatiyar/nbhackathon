@@ -55,17 +55,6 @@ function Home() {
       <Header></Header>
       <HomeCarousel></HomeCarousel>
       <AskUser></AskUser>
-      <HowWorks></HowWorks>
-      <div className="container mrgnbtm">
-        <div className="row">
-          <div className="col-md-12">
-              <CreateTask taskCreated={taskCreated}></CreateTask>
-          </div>
-        </div>
-      </div>
-      <div className="container mrgnbtm">
-        <Tasks tasks={tasks} deleteTask={delTask} taskEdited={taskEdited}></Tasks>
-     </div> 
   </div>
   );
 }

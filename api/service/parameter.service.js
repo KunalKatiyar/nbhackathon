@@ -129,7 +129,7 @@ class ParameterService {
             parameter.value_for_money = "Good Deal";
         }
         parameter.roi = 0;
-        parameter.roi = ((parameter.price*1.1) + avgRentByLocalityAndType*12)/parameter.price;
+        parameter.roi = (((parameter.price*0.1) + avgRentByLocalityAndType*12)/parameter.price)*100;
         console.log(parameter);
         let createdParameter = await parameterRepository.createParameter(parameter);
         createdParameters.push(createdParameter);
